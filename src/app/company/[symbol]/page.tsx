@@ -5,11 +5,12 @@ import GrowthChart from "@/components/GrowthChart";
 import AIAnalysis from "@/components/AIAnalysis";
 
 type Props = {
-  params: { symbol: string };
+  params: Promise<{ symbol: string }>;
 };
 
 export default async function CompanyPage({ params }: Props) {
-  const snapshot = await getCompanySnapshot(params.symbol);
+  const { symbol } = await params;
+  const snapshot = await getCompanySnapshot(symbol);
   const { profile, quote, highlights, news, financialData, valuation, longTermGrowth } = snapshot;
 
   return (
@@ -24,7 +25,7 @@ export default async function CompanyPage({ params }: Props) {
           智投研究
         </Link>
         <span>/</span>
-        <span>{profile.symbol}</span>
+        <span>{symbol}</span>
       </div>
 
       {/* Company Header Card */}
@@ -187,7 +188,7 @@ export default async function CompanyPage({ params }: Props) {
       )}
 
       {/* AI Analysis */}
-      <AIAnalysis companySymbol={params.symbol} companyName={profile.name} />
+      <AIAnalysis companySymbol={symbol} companyName={profile.name} />
 
       {/* Financial Charts */}
       {financialData && financialData.length > 0 && (

@@ -4,10 +4,10 @@ import { generateAIAnalysis } from "@/lib/data/a-share-live";
 
 export async function GET(
   request: NextRequest,
-  { params }: { params: { symbol: string } }
+  { params }: { params: Promise<{ symbol: string }> }
 ) {
   try {
-    const { symbol } = params;
+    const { symbol } = await params;
 
     // 获取公司数据
     const snapshot = await getCompanySnapshot(symbol);
