@@ -35,7 +35,7 @@ export async function getCompanySnapshotLive(symbol: string): Promise<CompanySna
       symbol: symbol,
       sector: data.stockBasic.industry || "未知行业",
       business: data.stockBasic.area || "中国",
-      employees: null,
+      employees: undefined,
       ipoDate: data.stockBasic.list_date
         ? `${data.stockBasic.list_date.slice(0, 4)}-${data.stockBasic.list_date.slice(4, 6)}-${data.stockBasic.list_date.slice(6, 8)}`
         : undefined,
